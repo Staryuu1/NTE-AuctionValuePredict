@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator Safe Bid Lelang</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 20px;
+    background: #0f1115;
+    color: #e6e6e6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+  }
+  .card {
+    width: 100%;
+    max-width: 480px;
+    background: #171a21;
+    border: 1px solid #2a2e38;
+    border-radius: 14px;
+    padding: 28px 24px;
+  }
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: #9a9fab;
+    margin: 0 0 24px;
+  }
+  .field {
+    margin-bottom: 16px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    color: #b6bac4;
+    margin-bottom: 6px;
+  }
+  input {
+    width: 100%;
+    padding: 10px 12px;
+    background: #0f1115;
+    border: 1px solid #2a2e38;
+    border-radius: 8px;
+    color: #e6e6e6;
+    font-size: 15px;
+  }
+  input:focus {
+    outline: none;
+    border-color: #6c7cff;
+  }
+  .results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .stat {
+    background: #1d212b;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .stat.accent {
+    background: #1a2440;
+    border: 1px solid #3a4a8f;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: #9a9fab;
+    margin: 0 0 6px;
+  }
+  .stat.accent .stat-label {
+    color: #8fa0ff;
+  }
+  .stat-value {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .stat.accent .stat-value {
+    color: #a9b6ff;
+  }
+  .note {
+    font-size: 12px;
+    color: #767b87;
+    margin-top: 18px;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Kalkulator safe bid lelang</h1>
+  <p class="subtitle">Prediksi batas aman bid berdasarkan jumlah item purple, gold, dan red.</p>
+
+  <div class="field">
+    <label for="total">Total purple + gold + red</label>
+    <input type="number" id="total" value="10" min="0" step="1">
+  </div>
+
+  <div class="field">
+    <label for="purple">Total purple</label>
+    <input type="number" id="purple" value="4" min="0" step="1">
+  </div>
+
+  <div class="field">
+    <label for="avgprice">Harga rata-rata (gold)</label>
+    <input type="number" id="avgprice" value="50000" min="0" step="1000">
+  </div>
+
+  <div class="results">
+    <div class="stat">
+      <p class="stat-label">Total gold + red</p>
+      <p class="stat-value" id="goldred">6</p>
+    </div>
+    <div class="stat accent">
+      <p class="stat-label">Auction Value</p>
+      <p class="stat-value" id="safebid">300.000</p>
+    </div>
+  </div>
+
+  <p class="note">Jangan bid melebihi angka safe bid ini. Ganti harga rata-rata jika kamu tahu nilai gold yang lebih akurat.</p>
+  <p class="note">Untuk mencari total pruple dan average gold value gunakan device dari Premium Evaluation Device </p>
+</div>
+
+<script>
+  function fmt(n) {
+    return Math.round(n).toLocaleString('id-ID');
+  }
+
+  function calc() {
+    var total = parseFloat(document.getElementById('total').value) || 0;
+    var purple = parseFloat(document.getElementById('purple').value) || 0;
+    var avg = parseFloat(document.getElementById('avgprice').value) || 0;
+
+    var goldred = Math.max(total - purple, 0);
+    var safebid = goldred * avg;
+
+    document.getElementById('goldred').textContent = Math.round(goldred);
+    document.getElementById('safebid').textContent = fmt(safebid);
+  }
+
+  ['total', 'purple', 'avgprice'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', calc);
+  });
+
+  calc();
+</script>
+
+</body>
+</html>
