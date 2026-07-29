@@ -27,6 +27,7 @@ Kalkulator sederhana untuk memprediksi batas aman (safe bid) saat lelang, berdas
 
 ## Note
 * Setiap ronde harus membeli pack ulang karena devices hanya 1x pakai peronde
+* Total Value Hasil Kalkulasi Merupakan Skenario terburuk, jadi ada kemungkinan Total Value Bisa lebih Besar dari hasil kalkulasi (atau lebih kecil)
 
 ## Credit
 
