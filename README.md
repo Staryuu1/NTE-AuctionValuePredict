@@ -30,4 +30,4 @@ Kalkulator sederhana untuk memprediksi batas aman (safe bid) saat lelang, berdas
 
 ## Credit
 
-Terinspirasi dari sebuah [postingan Facebook](https://web.facebook.com/share/p/1915QnrjYs/).
+Terinspirasi dari sebuah [postingan Facebook](https://web.facebook.com/share/p/1915QnrjYs/). Silakan Cek Original Post ya (bukan ide saya)
