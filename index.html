@@ -1,74 +1,151 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NTE-AuctionValue-Kalkulator</title>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen bg-[#0f1115] text-[#e6e6e6] font-sans flex justify-center px-5 py-10">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NTE-AuctionValue-Kalkulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body
+    class="min-h-screen bg-[#0b0d12] text-[#e8e8ec] font-sans flex justify-center px-4 py-10"
+  >
+    <div class="w-full max-w-[1280px]">
+      <div class="text-center mb-7">
+        <h1 class="text-2xl font-bold tracking-tight">
+          NTE Auction Value Kalkulator
+        </h1>
+        <p class="text-sm text-[#8b8f9c] mt-1">
+          Prediksi batas aman bid lelang, berdasarkan jumlah item dan item red
+          yang sudah ke-reveal.
+        </p>
+      </div>
 
-<div class="w-full max-w-[480px] bg-[#171a21] border border-[#2a2e38] rounded-2xl p-7">
+      <div
+        class="bg-[#12141a] border border-[#22252f] rounded-2xl p-6 sm:p-7 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] flex flex-col md:flex-row gap-7"
+      >
+        <!-- Kolom kiri: kalkulator -->
+        <div class="w-full md:w-[280px] md:flex-none">
+          <!-- Input dasar -->
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div>
+              <label
+                for="total"
+                class="block text-xs font-medium text-[#9a9fac] mb-1.5"
+                >Total purple+gold+red</label
+              >
+              <input
+                type="number"
+                id="total"
+                value="10"
+                min="0"
+                step="1"
+                class="w-full px-3 py-2.5 bg-[#0b0d12] border border-[#22252f] rounded-lg text-[#e8e8ec] text-sm focus:outline-none focus:border-[#6c7cff] focus:ring-1 focus:ring-[#6c7cff]"
+              />
+            </div>
+            <div>
+              <label
+                for="purple"
+                class="block text-xs font-medium text-[#9a9fac] mb-1.5"
+                >Total purple</label
+              >
+              <input
+                type="number"
+                id="purple"
+                value="4"
+                min="0"
+                step="1"
+                class="w-full px-3 py-2.5 bg-[#0b0d12] border border-[#22252f] rounded-lg text-[#e8e8ec] text-sm focus:outline-none focus:border-[#6c7cff] focus:ring-1 focus:ring-[#6c7cff]"
+              />
+            </div>
+          </div>
 
-  <h1 class="text-xl font-semibold mb-1">NTE-AuctionValue-Kalkulator</h1>
-  <p class="text-sm text-[#9a9fab] mb-6">Prediksi batas aman bid berdasarkan jumlah item purple, gold, dan red.</p>
+          <div class="mb-6">
+            <label
+              for="avgprice"
+              class="block text-xs font-medium text-[#9a9fac] mb-1.5"
+              >Harga rata-rata (gold)</label
+            >
+            <input
+              type="number"
+              id="avgprice"
+              value="50000"
+              min="0"
+              step="1000"
+              class="w-full px-3 py-2.5 bg-[#0b0d12] border border-[#22252f] rounded-lg text-[#e8e8ec] text-sm focus:outline-none focus:border-[#6c7cff] focus:ring-1 focus:ring-[#6c7cff]"
+            />
+          </div>
 
-  <div class="mb-4">
-    <label for="total" class="block text-sm text-[#b6bac4] mb-1.5">Total purple + gold + red</label>
-    <input type="number" id="total" value="10" min="0" step="1"
-      class="w-full px-3 py-2.5 bg-[#0f1115] border border-[#2a2e38] rounded-lg text-[#e6e6e6] text-[15px] focus:outline-none focus:border-[#6c7cff]">
-  </div>
+          <!-- Hasil -->
+          <div class="grid grid-cols-2 gap-3 mb-6">
+            <div class="bg-[#0e1016] rounded-xl p-4 border border-[#22252f]">
+              <p
+                class="text-[11px] uppercase tracking-wide text-[#767b87] mb-1"
+              >
+                Sisa gold+red
+              </p>
+              <p class="text-2xl font-bold" id="goldred">6</p>
+            </div>
+            <div
+              class="bg-gradient-to-br from-[#1a2140] to-[#171a30] rounded-xl p-4 border border-[#3a4a8f]"
+            >
+              <p
+                class="text-[11px] uppercase tracking-wide text-[#8fa0ff] mb-1"
+              >
+                Auction Value
+              </p>
+              <p class="text-2xl font-bold text-[#b3bdff]" id="safebid">
+                300.000
+              </p>
+            </div>
+          </div>
 
-  <div class="mb-4">
-    <label for="purple" class="block text-sm text-[#b6bac4] mb-1.5">Total purple</label>
-    <input type="number" id="purple" value="4" min="0" step="1"
-      class="w-full px-3 py-2.5 bg-[#0f1115] border border-[#2a2e38] rounded-lg text-[#e6e6e6] text-[15px] focus:outline-none focus:border-[#6c7cff]">
-  </div>
+          <p class="text-xs text-[#5f636e] leading-relaxed">
+            Ubah harga rata-rata gold jika kamu sudah tahu nilainya. Jika belum,
+            gunakan default 50k. Jangan bid melebihi angka Auction Value ini.
+          </p>
 
-  <div class="mb-4">
-    <label for="avgprice" class="block text-sm text-[#b6bac4] mb-1.5">Harga rata-rata (gold)</label>
-    <input type="number" id="avgprice" value="50000" min="0" step="1000"
-      class="w-full px-3 py-2.5 bg-[#0f1115] border border-[#2a2e38] rounded-lg text-[#e6e6e6] text-[15px] focus:outline-none focus:border-[#6c7cff]">
-  </div>
+          <a
+            href="https://github.com/Staryuu1/NTE-AuctionValuePredict/blob/main/README.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block text-center mt-5 pt-4 border-t border-[#22252f] text-sm text-[#8fa0ff] hover:underline"
+          >
+            Baca dokumentasi lengkap di README
+          </a>
+        </div>
 
-  <div class="grid grid-cols-2 gap-3 mt-6">
-    <div class="bg-[#1d212b] rounded-[10px] p-4">
-      <p class="text-xs text-[#9a9fab] mb-1.5">Total gold + red</p>
-      <p class="text-2xl font-semibold" id="goldred">6</p>
+        <!-- Kolom kanan: grid pemilihan item red -->
+        <div class="flex-1 md:border-l md:border-[#22252f] md:pl-7 min-w-0">
+          <div class="flex items-center justify-between mb-3">
+            <label class="block text-xs font-medium text-[#9a9fac]"
+              >Item red yang sudah diketahui (opsional)</label
+            >
+            <span
+              id="revealCount"
+              class="text-[11px] text-[#6c7cff] font-medium"
+              >0 dipilih</span
+            >
+          </div>
+
+          <div
+            id="redGrid"w
+            class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-h-[800px] overflow-y-auto pr-2"
+          ></div>
+
+          <p class="text-xs text-[#5f636e] mt-3 leading-relaxed">
+            Ketuk/klik gambar untuk menambah item (red) yang sudah kamu ketahui (bisa
+            lebih dari 1x). Ketuk tombol minus <b>(-)</b> di pojok kiri atas gambar atau klik kanan untuk mengurangi.
+          </p>
+        </div>
+      </div>
+
+      <p class="text-center text-[11px] text-[#4a4e58] mt-5">
+        NTE-AuctionValuePredict
+      </p>
     </div>
-    <div class="bg-[#1a2440] border border-[#3a4a8f] rounded-[10px] p-4">
-      <p class="text-xs text-[#8fa0ff] mb-1.5">Auction Value</p>
-      <p class="text-2xl font-semibold text-[#a9b6ff]" id="safebid">300.000</p>
-    </div>
-  </div>
 
-  <p class="text-xs text-[#767b87] mt-4 leading-relaxed">Ubah harga rata-rata gold jika kamu sudah tahu nilainya. Jika belum, gunakan default 50k.</p>
-
-  <a href="https://github.com/Staryuu1/NTE-AuctionValuePredict/blob/main/README.md" target="_blank" rel="noopener noreferrer"
-    class="block text-center mt-5 pt-4 border-t border-[#2a2e38] text-sm text-[#8fa0ff] hover:underline">
-    Baca dokumentasi lengkap di README
-  </a>
-
-</div>
-
-<script>
-  function fmt(n) {
-    return Math.round(n).toLocaleString('id-ID');
-  }
-  function calc() {
-    var total = parseFloat(document.getElementById('total').value) || 0;
-    var purple = parseFloat(document.getElementById('purple').value) || 0;
-    var avg = parseFloat(document.getElementById('avgprice').value) || 0;
-    var goldred = Math.max(total - purple, 0);
-    var safebid = goldred * avg;
-    document.getElementById('goldred').textContent = Math.round(goldred);
-    document.getElementById('safebid').textContent = fmt(safebid);
-  }
-  ['total', 'purple', 'avgprice'].forEach(function (id) {
-    document.getElementById(id).addEventListener('input', calc);
-  });
-  calc();
-</script>
-
-</body>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
