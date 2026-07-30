@@ -22,11 +22,9 @@
       </div>
 
       <div
-        class="bg-[#12141a] border border-[#22252f] rounded-2xl p-6 sm:p-7 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] flex flex-col md:flex-row gap-7"
+        class="bg-[#12141a] border border-[#22252f] rounded-2xl p-6 sm:p-7 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] flex flex-col md:flex-row gap-7 mb-6"
       >
-        <!-- Kolom kiri: kalkulator -->
         <div class="w-full md:w-[280px] md:flex-none">
-          <!-- Input dasar -->
           <div class="grid grid-cols-2 gap-3 mb-4">
             <div>
               <label
@@ -76,9 +74,8 @@
             />
           </div>
 
-          <!-- Hasil -->
           <div class="grid grid-cols-2 gap-3 mb-6">
-            <div class="bg-[#0e1016] rounded-xl p-4 border border-[#22252f]">
+            <div class="bg-[#0e1016] rounded-xl p-4 border border-[#22252f] min-w-0">
               <p
                 class="text-[11px] uppercase tracking-wide text-[#767b87] mb-1"
               >
@@ -87,14 +84,14 @@
               <p class="text-2xl font-bold" id="goldred">6</p>
             </div>
             <div
-              class="bg-gradient-to-br from-[#1a2140] to-[#171a30] rounded-xl p-4 border border-[#3a4a8f]"
+              class="bg-gradient-to-br from-[#1a2140] to-[#171a30] rounded-xl p-4 border border-[#3a4a8f] min-w-0"
             >
               <p
                 class="text-[11px] uppercase tracking-wide text-[#8fa0ff] mb-1"
               >
                 Auction Value
               </p>
-              <p class="text-2xl font-bold text-[#b3bdff]" id="safebid">
+              <p class="font-bold text-[#b3bdff] break-all leading-tight text-2xl" id="safebid">
                 300.000
               </p>
             </div>
@@ -115,7 +112,6 @@
           </a>
         </div>
 
-        <!-- Kolom kanan: grid pemilihan item red -->
         <div class="flex-1 md:border-l md:border-[#22252f] md:pl-7 min-w-0">
           <div class="flex items-center justify-between mb-3">
             <label class="block text-xs font-medium text-[#9a9fac]"
@@ -129,8 +125,8 @@
           </div>
 
           <div
-            id="redGrid"w
-            class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-h-[800px] overflow-y-auto pr-2"
+            id="redGrid"
+            class="grid grid-cols-4 gap-4 overflow-y-auto pr-2"
           ></div>
 
           <p class="text-xs text-[#5f636e] mt-3 leading-relaxed">
@@ -138,6 +134,49 @@
             lebih dari 1x). Ketuk tombol minus <b>(-)</b> di pojok kiri atas gambar atau klik kanan untuk mengurangi.
           </p>
         </div>
+      </div>
+
+      <div
+        class="bg-[#12141a] border border-[#22252f] rounded-2xl p-6 sm:p-7 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]"
+      >
+        <h2 class="text-lg font-semibold mb-4">Prediksi Kombinasi Gold</h2>
+
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-3">
+            <label class="block text-xs font-medium text-[#9a9fac]"
+              >Item gold yang sudah diketahui (opsional, filter prediksi)</label
+            >
+            <span
+              id="goldKnownCountLabel"
+              class="text-[11px] text-[#ffb84d] font-medium"
+              >0 dipilih</span
+            >
+          </div>
+
+          <div class="relative">
+            <input
+              type="text"
+              id="goldSearchInput"
+              autocomplete="off"
+              placeholder="Cari nama item gold... misal: Gio"
+              class="w-full px-3 py-2.5 bg-[#0b0d12] border border-[#22252f] rounded-lg text-[#e8e8ec] text-sm focus:outline-none focus:border-[#ffb84d] focus:ring-1 focus:ring-[#ffb84d]"
+            />
+            <div
+              id="goldSearchDropdown"
+              class="hidden absolute z-10 mt-1 w-full bg-[#12141a] border border-[#22252f] rounded-lg shadow-lg max-h-64 overflow-y-auto"
+            ></div>
+          </div>
+
+          <div id="goldKnownChips" class="flex flex-wrap gap-2 mt-3"></div>
+
+          <p class="text-xs text-[#5f636e] mt-2 leading-relaxed">
+            Ketik nama item gold, klik hasil pencarian untuk menambahkan. Setiap hasil
+            prediksi di bawah akan wajib menyertakan minimal item ini. Klik chip
+            untuk mengurangi.
+          </p>
+        </div>
+
+        <div id="pkResults" class="mt-1 grid gap-3 items-start grid-cols-[repeat(auto-fit,minmax(280px,1fr))]"></div>
       </div>
 
       <p class="text-center text-[11px] text-[#4a4e58] mt-5">
